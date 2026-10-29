@@ -1,0 +1,32 @@
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: shopping-v3
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: shopping-v3
+  template:
+    metadata:
+      labels:
+        app: shopping-v3
+    spec:
+      containers:
+        - name: shopping-app
+          image: amalan4321/shopping-app:v3
+          ports:
+            - containerPort: 5000
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: shopping-v3-service
+spec:
+  type: ClusterIP
+  selector:
+    app: shopping-v3
+  ports:
+    - port: 5000
+      targetPort: 5000

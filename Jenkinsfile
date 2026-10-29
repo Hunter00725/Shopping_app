@@ -3,31 +3,25 @@ pipeline {
     agent any
 
     environment {
-        DOCKERHUB_REPO = 'YOUR_DOCKERHUB_USERNAME/shopping-app'
+        DOCKERHUB_REPO = 'amalan4321/shopping-app'
     }
 
     stages {
-        stage('Checkout') {
-            steps {
-                checkout scm
-            }
-        }
-
         stage('Build v1') {
             steps {
-                sh 'docker build -t $DOCKERHUB_REPO:v1 ./v1'
+                sh 'docker build -t ${DOCKERHUB_REPO}:v1 ./v1'
             }
         }
 
         stage('Build v2') {
             steps {
-                sh 'docker build -t $DOCKERHUB_REPO:v2 ./v2'
+                sh 'docker build -t ${DOCKERHUB_REPO}:v2 ./v2'
             }
         }
 
         stage('Build v3') {
             steps {
-                sh 'docker build -t $DOCKERHUB_REPO:v3 ./v3'
+                sh 'docker build -t ${DOCKERHUB_REPO}:v3 ./v3'
             }
         }
 
@@ -52,9 +46,9 @@ pipeline {
         stage('Push Images') {
             steps {
                 sh '''
-                    docker push $DOCKERHUB_REPO:v1
-                    docker push $DOCKERHUB_REPO:v2
-                    docker push $DOCKERHUB_REPO:v3
+                    docker push ${DOCKERHUB_REPO}:v1
+                    docker push ${DOCKERHUB_REPO}:v2
+                    docker push ${DOCKERHUB_REPO}:v3
                 '''
             }
         }
